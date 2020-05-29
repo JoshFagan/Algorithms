@@ -1,0 +1,23 @@
+#!/bin/bash
+
+for (( m = 0; m <= 3; m = m+1 ))
+do
+    for (( h = 0; h < 10; h = h+1 ))
+    do
+        # Test heap_sort_selection on array size = 1000-9000
+        # Test each array size with i = 1, size/2, size
+        for (( seed = 0; seed < 10; seed = seed+1 ))
+        do 
+            size=$(($m*1000000+$h*100000+$seed*10000))
+            i=1
+            echo "---------- seed = $seed size = $size  i = $i ----------"
+            time ./heap_sort_selection $seed $size $i
+            i=$((size/2))
+            echo "---------- seed = $seed size = $size  i = $i ----------"
+            time ./heap_sort_selection $seed $size $i
+            i=$size
+            echo "---------- seed = $seed size = $size  i = $i ----------"
+            time ./heap_sort_selection $seed $size $i
+        done
+    done
+done
